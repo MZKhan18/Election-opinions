@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pickle
 import string
-import seaborn as sns
+# import seaborn as sns
 import matplotlib.pyplot as plt
 f = open('english_stopwords.txt')
 stopwords = f.read()
