@@ -82,7 +82,23 @@ with col1:
             results.append(results[-1] - 1)
 
 with col2:
-    st.header("Real Time Stats")
+    st.header("📊 Real-Time Opinion Share")
+
+    congress_pct = results[-1]
+    bjp_pct = 100 - congress_pct
+
+    labels = ['Congress', 'BJP']
+    sizes = [congress_pct, bjp_pct]
+
     fig, ax = plt.subplots()
-    ax.bar(['BJP','Congress'],[100-results[-1],results[-1]], color = 'blue',width = 0.6)
+    ax.pie(
+        sizes,
+        labels=labels,
+        autopct='%1.1f%%',
+        startangle=90,
+        wedgeprops=dict(width=0.4)
+    )
+    ax.set_title("Opinion Poll Distribution")
+
     st.pyplot(fig)
+
