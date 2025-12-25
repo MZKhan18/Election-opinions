@@ -30,7 +30,8 @@ sentimentVect = pickle.load(open('sentimentVect.pkl','rb'))
 label = False
 
 
-st.title('Election Opinions on Twitter')
+st.title("🗳️ Twitter Election Opinion Analyzer")
+st.caption("Machine Learning based sentiment & party classification")
 
 
 col1,col2 = st.columns(2)
@@ -81,24 +82,28 @@ with col1:
         else:
             results.append(results[-1] - 1)
 
-with col2:
-    st.header("📊 Real-Time Opinion Share")
+        with col2:
+            st.header("📊 Real-Time Opinion Split")
+        
+            total = 100
+            congress_pct = results[-1]
+            bjp_pct = total - congress_pct
+        
+            fig, ax = plt.subplots(figsize=(6, 2))
+        
+            ax.barh(
+                ['Congress', 'BJP'],
+                [congress_pct, bjp_pct]
+            )
+        
+            ax.set_xlim(0, 100)
+            ax.set_xlabel("Percentage (%)")
+            ax.set_title("Opinion Distribution")
+        
+            for i, v in enumerate([congress_pct, bjp_pct]):
+                ax.text(v + 1, i, f"{v}%", va='center')
+        
+            st.pyplot(fig)
 
-    congress_pct = results[-1]
-    bjp_pct = 100 - congress_pct
 
-    labels = ['Congress', 'BJP']
-    sizes = [congress_pct, bjp_pct]
-
-    fig, ax = plt.subplots()
-    ax.pie(
-        sizes,
-        labels=labels,
-        autopct='%1.1f%%',
-        startangle=90,
-        wedgeprops=dict(width=0.4)
-    )
-    ax.set_title("Opinion Poll Distribution")
-
-    st.pyplot(fig)
 
